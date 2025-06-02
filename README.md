@@ -1,13 +1,13 @@
-# Local Ref - Simple, Powerful State Management for Dart & Flutter
+# Local Ref - Simple, Powerful State Management for Flutter
 
 [![pub version][pub_badge]][pub_link]
 [![license][license_badge]][license_link]
 
-A lightweight, intuitive, and powerful state management library for Dart and Flutter applications. Inspired by reactive programming principles, `local_ref` provides fine-grained reactivity with minimal boilerplate.
+A lightweight, intuitive, and powerful state management library for Flutter applications. Inspired by reactive programming principles, `local_ref` provides fine-grained reactivity with minimal boilerplate.
 
 ## Overview
 
-`local_ref` offers a simple way to create observable values (`Ref`) and automatically react to their changes (`watchEffect`, `watchMultiple`). It also includes a `Store` for managing multiple named `Ref`s, and seamless integration with Flutter widgets for building reactive UIs.
+`local_ref` offers a simple way to create observable values (`Ref`) and automatically react to their changes (`watch`, `watchEffect`, `watchMultiple`). It also includes a `Store` for managing multiple named `Ref`s, and seamless integration with Flutter widgets for building reactive UIs.
 
 The library is designed to be:
 - **Simple & Intuitive**: Easy to learn and use, with a minimal API surface.
@@ -19,6 +19,7 @@ The library is designed to be:
 ## Features
 
 - **`Ref<T>`**: Observable, reactive references for any data type.
+- **`watch`**: Automatically tracks `Ref` dependencies and re-runs a function when they change.
 - **`watchEffect`**: Automatically tracks `Ref` dependencies and re-runs a function when they change.
 - **`watchMultiple`**: Observes a list of `Ref`s and triggers a callback with their new values, supporting type-safe conversion to Dart Records.
 - **`Store`**: A centralized container to manage multiple named `Ref`s.
@@ -278,15 +279,15 @@ Listen to a part of a `Ref`'s value or a derived value from a `Store`. This is u
 
 ```dart
 // Example for RefSelector:
-// class MyData { final String name; MyData(this.name); }
-// final myDataRef = ref(MyData("initial name"));
-// RefSelector<MyData, String>(
-//   refValue: myDataRef, // This ref would typically be obtained from a provider or state
-//   selector: (context, data) => data.name,
-//   builder: (context, name, child) {
-//     return Text('Data name: $name'); // Only rebuilds if name changes
-//   },
-// );
+class MyData { final String name; MyData(this.name); }
+final myDataRef = ref(MyData("initial name"));
+RefSelector<MyData, String>(
+  refValue: myDataRef, // This ref would typically be obtained from a provider or state
+  selector: (context, data) => data.name,
+  builder: (context, name, child) {
+    return Text('Data name: $name'); // Only rebuilds if name changes
+  },
+);
 
 // Example with StoreSelector
 StoreSelector<String>(
@@ -325,3 +326,11 @@ final specificValue = context.storeValue<String>('message');
 ## License
 
 This package is licensed under the MIT License. See the `LICENSE` file for details.
+
+
+[pub_badge]: https://img.shields.io/pub/v/local_ref.svg
+[pub_link]: https://pub.dev/packages/local_ref
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT
+[effective_dart_badge]: https://img.shields.io/badge/style-effective_dart-40c4ff.svg
+[effective_dart_link]: https://github.com/tenhobi/effective_dart
