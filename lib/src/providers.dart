@@ -69,7 +69,7 @@ class RefProvider<T> extends ChangeNotifierProvider<RefBase<T>> {
 /// {@tool snippet}
 /// ```dart
 /// final myStore = Store(); // Your Store instance
-/// myStore.addRef('counter', ref(0));
+/// myStore.register('counter', ref(0));
 ///
 /// // In your widget tree:
 /// StoreProvider(
@@ -234,7 +234,7 @@ class RefSelector<T, S> extends Selector<RefBase<T>, S> {
 /// {@tool snippet}
 /// ```dart
 /// // Assuming StoreProvider(store: myStore, ...) is above.
-/// // myStore.addRef('user', ref(User(name: 'Bob', age: 25)));
+/// // myStore.register('user', ref(User(name: 'Bob', age: 25)));
 ///
 /// StoreSelector<String>(
 ///   selector: (context, store) {

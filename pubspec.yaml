@@ -1,6 +1,6 @@
 name: local_ref
 description: "A simple, powerful state management library for Flutter applications. Inspired by Vue3's ref."
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/Aykahshi/local_ref
 repository: https://github.com/Aykahshi/local_ref
 

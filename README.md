@@ -66,6 +66,28 @@ counter.value++;
 print(counter.value); // Output: 1
 ```
 
+### `watch`
+
+Watch a function and re-run it whenever single `Ref` accessed within it changes. Returns a `StopHandle` to stop the effect.
+
+```dart
+final counter = ref(0);
+
+final stop = watch(
+  counter,
+  (newValue, oldValue) {
+    print('Counter changed from $oldValue to $newValue');
+  },
+  immediate: true, // Run callback immediately with initial value
+);
+
+counter.value++; // Triggers callback: "Counter changed from 0 to 1"
+counter.value = 5; // Triggers callback: "Counter changed from 1 to 5"
+
+stop(); // Stop the watcher
+counter.value = 10; // Callback will no longer be invoked
+```
+
 ### `watchEffect(() { ... })`
 
 Runs a function immediately and then re-runs it whenever any `Ref` accessed within it changes. Returns a `StopHandle` to stop the effect.
@@ -277,7 +299,7 @@ StoreSelector<String>(
 
 #### 5. `BuildContext` Extensions
 
-Access provided `Ref`s and `Store`s easily.
+Access provided `Ref`s and `Store`s easily. And of course, you can use `context.watch()` and `context.select()` from `provider` package as well.
 
 ```dart
 // In a widget's build method:
@@ -300,36 +322,6 @@ final specificRef = context.storeRef<String>('message');
 final specificValue = context.storeValue<String>('message');
 ```
 
-## Examples
-
-The `example/` directory contains a Flutter application showcasing:
-- Local `Ref` usage within a widget (`LocalUsagePage`).
-- `RefProvider` and `RefConsumer` pattern (`RefProviderPage`).
-- `StoreProvider`, `StoreConsumer`, and `StoreSelector` patterns (`StoreProviderPage`).
-- Usage of `watchEffect` and `watchMultiple`.
-
-To run the example:
-```bash
-cd example
-flutter pub get
-flutter run -t example.dart -d chrome # or your preferred device
-```
-
-## API Documentation
-
-For detailed API documentation, please visit the [package page on pub.dev][pub_link] (link will be active once published).
-
-## Contributing
-
-Contributions are welcome! If you find a bug or have a feature request, please open an issue on the GitHub repository. If you'd like to contribute code, please fork the repository and submit a pull request.
-
 ## License
 
 This package is licensed under the MIT License. See the `LICENSE` file for details.
-
-[pub_badge]: https://img.shields.io/pub/v/local_ref.svg
-[pub_link]: https://pub.dev/packages/local_ref
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[effective_dart_badge]: https://img.shields.io/badge/style-effective_dart-40c4ff.svg
-[effective_dart_link]: https://github.com/tenhobi/effective_dart
